@@ -2,6 +2,9 @@
 	"name": "react-tailwindcss-portfolio",
 	"version": "0.1.0",
 	"private": true,
+	"engines": {
+		"node": "18.x"
+	},
 	"dependencies": {
 		"@google/generative-ai": "^0.24.1",
 		"@tailwindcss/typography": "^0.5.19",
