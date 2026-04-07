@@ -1,6 +1,13 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
 
 const API_KEY = process.env.REACT_APP_GEMINI_API_KEY;
+
+if (!API_KEY) {
+    console.error("ERRO: A variável REACT_APP_GEMINI_API_KEY não foi encontrada. Verifique se ela está configurada corretamente no painel da Vercel e se você fez um Redeploy após salvá-la.");
+} else {
+    console.log("Gemini API Key detectada (Início: " + API_KEY.substring(0, 5) + "...)");
+}
+
 const genAI = new GoogleGenerativeAI(API_KEY);
 
 const RESUME_CONTEXT = `# Currículo - Ivan Cavalcante
