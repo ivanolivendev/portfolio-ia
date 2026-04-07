@@ -1,14 +1,56 @@
+import { useState } from 'react';
 import Button from '../reusable/Button';
 import FormInput from '../reusable/FormInput';
 
 const ContactForm = () => {
+	const [status, setStatus] = useState('');
+	const [formData, setFormData] = useState({
+		name: '',
+		email: '',
+		subject: '',
+		message: '',
+	});
+
+	// REPLACE THIS ID WITH YOUR ACTUAL FORMSPREE ID (get it at https://formspree.io)
+	const formID = 'xvzvlzgy'; 
+
+	const handleInputChange = (e) => {
+		const { name, value } = e.target;
+		setFormData((prevData) => ({
+			...prevData,
+			[name]: value,
+		}));
+	};
+
+	const handleSubmit = async (e) => {
+		e.preventDefault();
+		setStatus('Sending...');
+
+		try {
+			const response = await fetch(`https://formspree.io/f/${formID}`, {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify(formData),
+			});
+
+			if (response.ok) {
+				setStatus('Thanks for your message! I will get back to you soon.');
+				setFormData({ name: '', email: '', subject: '', message: '' });
+			} else {
+				setStatus('Oops! There was a problem. Please try again later.');
+			}
+		} catch (error) {
+			setStatus('Error connecting to the server. Please try again.');
+		}
+	};
+
 	return (
 		<div className="w-full lg:w-1/2">
 			<div className="leading-loose">
 				<form
-					onSubmit={(e) => {
-						e.preventDefault();
-					}}
+					onSubmit={handleSubmit}
 					className="max-w-xl m-4 p-6 sm:p-10 bg-secondary-light dark:bg-secondary-dark rounded-xl shadow-xl text-left"
 				>
 					<p className="font-general-medium text-primary-dark dark:text-primary-light text-2xl mb-8">
@@ -22,6 +64,8 @@ const ContactForm = () => {
 						inputName="name"
 						placeholderText="Your Name"
 						ariaLabelName="Name"
+						onChange={handleInputChange}
+						value={formData.name}
 					/>
 					<FormInput
 						inputLabel="Email"
@@ -31,6 +75,8 @@ const ContactForm = () => {
 						inputName="email"
 						placeholderText="Your email"
 						ariaLabelName="Email"
+						onChange={handleInputChange}
+						value={formData.email}
 					/>
 					<FormInput
 						inputLabel="Subject"
@@ -40,6 +86,8 @@ const ContactForm = () => {
 						inputName="subject"
 						placeholderText="Subject"
 						ariaLabelName="Subject"
+						onChange={handleInputChange}
+						value={formData.subject}
 					/>
 
 					<div className="mt-6">
@@ -56,6 +104,9 @@ const ContactForm = () => {
 							cols="14"
 							rows="6"
 							aria-label="Message"
+							required
+							onChange={handleInputChange}
+							value={formData.message}
 						></textarea>
 					</div>
 
@@ -66,6 +117,12 @@ const ContactForm = () => {
 							aria-label="Send Message"
 						/>
 					</div>
+
+					{status && (
+						<p className={`mt-4 text-center font-general-regular ${status.includes('Error') || status.includes('Oops') ? 'text-red-500' : 'text-green-500'}`}>
+							{status}
+						</p>
+					)}
 				</form>
 			</div>
 		</div>

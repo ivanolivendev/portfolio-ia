@@ -1,4 +1,3 @@
-// Import images
 import WebImage1 from '../images/web-project-1.jpg';
 import WebImage2 from '../images/web-project-2.jpg';
 import MobileImage1 from '../images/mobile-project-1.jpg';
@@ -7,45 +6,64 @@ import UIImage1 from '../images/ui-project-1.jpg';
 import UIImage2 from '../images/ui-project-2.jpg';
 
 export const projectsData = [
-	{
-		id: 1,
-		title: 'Google Health Platform',
-		category: 'Web Application',
-		img: WebImage2,
-		ProjectHeader: {
-			title: 'Project Management UI - From Context',
-			publishDate: 'Jul 26, 2021',
-			tags: 'UI / Frontend',
-		},
-	},
-	{
-		id: 2,
-		title: 'Phoenix Digital Agency',
-		category: 'Mobile Application',
-		img: MobileImage2,
-	},
-	{
-		id: 3,
-		title: 'Project Management UI',
-		category: 'UI/UX Design',
-		img: UIImage1,
-	},
-	{
-		id: 4,
-		title: 'Cloud Storage Platform',
-		category: 'UI/UX Design',
-		img: UIImage2,
-	},
-	{
-		id: 5,
-		title: 'React Social App',
-		category: 'Mobile Application',
-		img: MobileImage1,
-	},
-	{
-		id: 6,
-		title: 'Apple Design System',
-		category: 'Web Application',
-		img: WebImage1,
-	},
+    {
+        title: 'hebraic rag engine api',
+        category: 'AI Engineering',
+        img: WebImage2,
+        ProjectHeader: {
+            title: 'hebraic rag engine api - llm optimization',
+            publishDate: 'aug 2025',
+            tags: 'python / llm / pinecone',
+        },
+    },
+    {
+        title: 'hebraic mcp server',
+        category: 'Backend Development',
+        img: MobileImage2,
+        ProjectHeader: {
+            title: 'hebraic mcp server - context protocol',
+            publishDate: 'jun 2025',
+            tags: 'node.js / mcp / typescript',
+        },
+    },
+    {
+        title: 'ai data pipeline orchestrator',
+        category: 'Automation',
+        img: UIImage1,
+        ProjectHeader: {
+            title: 'ai data pipeline orchestrator (n8n)',
+            publishDate: 'jan 2025',
+            tags: 'n8n / docker / automation',
+        },
+    },
+    {
+        title: 'hebraic ai agent',
+        category: 'Artificial Intelligence',
+        img: UIImage2,
+        ProjectHeader: {
+            title: 'hebraic ai agent - autonomous workflows',
+            publishDate: 'mar 2025',
+            tags: 'langchain / openai / python',
+        },
+    },
+    {
+        title: 'ai knowledge interface',
+        category: 'Full-Stack Development',
+        img: MobileImage1,
+        ProjectHeader: {
+            title: 'ai knowledge interface - interactive ux',
+            publishDate: 'may 2025',
+            tags: 'react / tailwind / ai ux',
+        },
+    },
+    {
+        title: 'ai monitoring & evaluation system',
+        category: 'AIOps',
+        img: WebImage1,
+        ProjectHeader: {
+            title: 'ai monitoring & evaluation system',
+            publishDate: 'apr 2025',
+            tags: 'data analysis / sql / dashboards',
+        },
+    },
 ];

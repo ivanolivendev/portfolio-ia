@@ -37,10 +37,10 @@ const ChatAI = () => {
 				{ role: 'model', parts: [{ text: response }] }
 			]);
 		} catch (error) {
-			console.error("Erro ao enviar mensagem:", error);
+			console.error("Error sending message:", error);
 			setMessages([
 				...newHistory,
-				{ role: 'model', parts: [{ text: "Desculpe, tive um problema ao processar sua pergunta. Tente novamente em instantes." }] }
+				{ role: 'model', parts: [{ text: "Sorry, I encountered an issue while processing your request. Please try again in a moment." }] }
 			]);
 		} finally {
 			setIsLoading(false);
@@ -57,10 +57,10 @@ const ChatAI = () => {
 		<div className="w-full max-w-4xl mx-auto my-10 p-4 sm:p-6 bg-secondary-light dark:bg-ternary-dark rounded-xl shadow-lg border border-primary-light dark:border-secondary-dark">
 			<div className="text-center mb-8">
 				<h2 className="text-2xl sm:text-3xl font-semibold text-primary-dark dark:text-primary-light mb-2">
-					Fale com a IA do Ivan
+					Chat with Ivan's AI
 				</h2>
 				<p className="text-ternary-dark dark:text-ternary-light text-sm sm:text-base">
-					Tire suas dúvidas sobre a experiência e as habilidades do Ivan.
+					Ask questions about Ivan’s experience, skills, and projects.
 				</p>
 			</div>
 
@@ -68,7 +68,10 @@ const ChatAI = () => {
 				{messages.length === 0 ? (
 					<div className="h-full flex flex-col items-center justify-center text-gray-400 dark:text-gray-500 text-center px-4">
 						<FiCpu className="text-5xl mb-4 opacity-20" />
-						<p>Olá! Pergunte algo como:<br/>"Quais as principais habilidades do Ivan?" ou "Fale sobre a experiência dele na Agropalma."</p>
+						<p>
+							Hi! Try asking something like:<br/>
+							"What are Ivan's main skills?" or "Tell me about his experience at Agropalma."
+						</p>
 					</div>
 				) : (
 					messages.map((msg, index) => (
@@ -110,7 +113,7 @@ const ChatAI = () => {
 					value={inputValue}
 					onChange={(e) => setInputValue(e.target.value)}
 					onKeyDown={handleKeyPress}
-					placeholder="Escreva sua pergunta..."
+					placeholder="Type your question..."
 					className="w-full p-4 pr-20 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-primary-dark text-primary-dark dark:text-primary-light focus:outline-none focus:ring-2 focus:ring-indigo-500 duration-300 shadow-sm"
 				/>
 				<button
