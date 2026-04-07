@@ -36,7 +36,7 @@ Desenvolvedor orientado à construção de soluções que conectam tecnologia de
 `;
 
 export const model = genAI.getGenerativeModel({ 
-  model: "gemini-flash-latest",
+  model: "gemini-1.5-flash",
   systemInstruction: `Você é um assistente virtual especializado no currículo de Ivan Cavalcante. 
   Seu objetivo é responder perguntas sobre a carreira, habilidades e experiências de Ivan usando as informações abaixo:
   
@@ -51,29 +51,35 @@ export const model = genAI.getGenerativeModel({
 
 export async function sendMessage(history, message) {
   if (!API_KEY) {
-      console.warn("A chave da API Gemini não foi encontrada no arquivo .env.");
-      return "Olá! Sou a IA do Ivan. Para eu funcionar, você precisa configurar minha chave de API no arquivo .env.";
+      console.warn("A chave da API Gemini não foi encontrada.");
+      return "Olá! Sou a IA do Ivan. Para eu funcionar, você precisa configurar a chave de API no painel da Vercel.";
   }
 
   try {
+    // Formata o histórico para o padrão esperado pelo SDK do Google
+    const formattedHistory = history.map(msg => ({
+      role: msg.role === 'user' ? 'user' : 'model',
+      parts: [{ text: msg.parts[0].text }]
+    }));
+
     const chat = model.startChat({
-      history: history.length > 0 ? history : [],
+      history: formattedHistory,
     });
 
     const result = await chat.sendMessage(message);
     const response = await result.response;
     return response.text();
   } catch (error) {
-    console.error("Erro na API Gemini:", error);
+    console.error("Erro na API Gemini (Chat Mode):", error);
     
-    // Tenta gerar conteúdo simples se o modo chat falhar
+    // Fallback: Tenta gerar conteúdo simples sem o histórico se o chat falhar
     try {
         const result = await model.generateContent(message);
         const response = await result.response;
         return response.text();
     } catch (innerError) {
         console.error("Erro fatal na API Gemini:", innerError);
-        throw innerError;
+        return "Desculpe, encontrei um erro ao processar sua solicitação. Por favor, verifique se a chave de API está correta e tente novamente.";
     }
   }
 }
